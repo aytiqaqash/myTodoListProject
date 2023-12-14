@@ -3,6 +3,7 @@ package dev.aytiqaqash.mytodoproject.service;
 import dev.aytiqaqash.mytodoproject.exception.ResourceNotFoundException;
 import dev.aytiqaqash.mytodoproject.model.Todo;
 import dev.aytiqaqash.mytodoproject.repository.TodoRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,7 @@ public class TodoService {
 
     // Create
 
+    @Valid
     public Todo createTodo(Todo todo) {
         return todoRepository.save(todo);
     }
@@ -33,6 +35,7 @@ public class TodoService {
 
     // Update
 
+    @Valid
     public Todo updateTodo(Long id, Todo todo) {
         Todo existingTodo = todoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Todo not found with id " + id));
         existingTodo.setTitle(todo.getTitle());
