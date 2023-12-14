@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +34,7 @@ public class TodoService {
     // Read
 
 
-    public Page<Todo> getAllTodos(@PageableDefault(size = 20) Pageable pageable){
+    public Page<Todo> getAllTodos(@PageableDefault(size = 20, sort = "id", direction = Sort.Direction.ASC) Pageable pageable){
         return todoRepository.findAll(pageable);
     }
 
