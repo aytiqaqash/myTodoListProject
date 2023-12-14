@@ -1,5 +1,6 @@
 package dev.aytiqaqash.mytodoproject.controller;
 
+import dev.aytiqaqash.mytodoproject.exception.ResourceNotFoundException;
 import dev.aytiqaqash.mytodoproject.model.Todo;
 import dev.aytiqaqash.mytodoproject.service.TodoService;
 import jakarta.validation.Valid;
@@ -64,6 +65,21 @@ public class TodoController {
         return errors;
     }
 
+    @ExceptionHandler(ResourceNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Map<String, String> handleResourceNotFoundException(ResourceNotFoundException ex) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put("message", ex.getMessage());
+        return errors;
+    }
+
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public Map<String, String> handleException(Exception ex) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put("message", ex.getMessage());
+        return errors;
+    }
 
 
 
