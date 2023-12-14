@@ -5,6 +5,9 @@ import dev.aytiqaqash.mytodoproject.model.Todo;
 import dev.aytiqaqash.mytodoproject.service.TodoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -34,8 +37,8 @@ public class TodoController {
     // Read
 
     @GetMapping("/todos")
-    public List<Todo> getAllTodos(){
-        return todoService.getAllTodos();
+    public Page<Todo> getAllTodos(@PageableDefault(size = 20) Pageable pageable){
+        return todoService.getAllTodos(pageable);
     }
 
     // Update
